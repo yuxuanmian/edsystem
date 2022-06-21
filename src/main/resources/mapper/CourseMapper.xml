@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edsystem.mapper.CourseMapper">
+    <update id="updateExam" parameterType="com.edsystem.pojo.Course">
+        update course set examTime=#{examTime},examPlace=#{examPlace} where courseId=#{courseId}
+    </update>
+    <select id="selectExamByStudentId" resultMap="courseMap">
+        select * from course c join student_course sc on c.courseId=sc.courseId
+        <where>
+            <if test="param1 !=null">
+                studentId=#{param1}
+            </if>
+        </where>
+        limit #{param2},#{param3}
+    </select>
+    <select id="totalSizeByStudentId" resultType="int">
+        select count(*) from course c join student_course sc on c.courseId=sc.courseId
+        <where>
+            <if test="studentId != null">
+                studentId=#{studentId}
+            </if>
+        </where>
+    </select>
+    <select id="selectExamByTeacherId" resultMap="courseMap">
+        select * from course c join teacher_course tc on c.courseId=tc.courseId
+        <where>
+            <if test="param1 !=null">
+                teacherId=#{param1}
+            </if>
+        </where>
+        limit #{param2},#{param3}
+    </select>
+    <select id="totalSizeByTeacherId" resultType="int">
+        select count(*) from course c join teacher_course tc on c.courseId=tc.courseId
+        <where>
+            <if test="teacherId != null">
+                teacherId=#{teacherId}
+            </if>
+        </where>
+    </select>
+    <select id="selectExamByName" resultMap="courseMap">
+        select * from course where courseName=#{param1} limit #{param2},#{param3}
+    </select>
+    <select id="totalSizeByName" resultType="int">
+        select count(*) from course where courseName=#{courseName}
+    </select>
+    <select id="selectAllExam" resultMap="courseMap">
+        select * from course limit #{param1},#{param2}
+    </select>
+    <select id="totalSize" resultType="int">
+        select count(*) from course
+    </select>
+    <resultMap id="courseMap" type="com.edsystem.pojo.Course">
+        <id property="id" column="id"></id>
+        <result property="courseId" column="courseId"></result>
+        <result property="courseName" column="courseName"></result>
+        <result property="courseTime" column="courseTime"></result>
+        <result property="lessonType" column="lessonType"></result>
+        <result property="examTime" column="examTime"></result>
+        <result property="examPlace" column="examPlace"></result>
+        <result property="credit" column="credit"></result>
+    </resultMap>
+</mapper>

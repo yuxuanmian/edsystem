@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class RestultVo<T> {
+public class ResultVo<T> {
 
     /**
      * 状态码

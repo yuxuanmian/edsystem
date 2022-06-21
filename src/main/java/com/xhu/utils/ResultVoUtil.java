@@ -1,7 +1,7 @@
 package com.xhu.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.xhu.common.vo.RestultVo;
+import com.xhu.common.vo.ResultVo;
 
 /**
  * 封装返回结果的工具类
@@ -22,7 +22,7 @@ public abstract class ResultVoUtil {
      * @return 结果
      */
     public static String returnWithoutAttahment(int code, String message) {
-        RestultVo<Void> result = new RestultVo<Void>()
+        ResultVo<Void> result = new ResultVo<Void>()
                 .setCode(code)
                 .setMessage(message);
 
@@ -37,7 +37,7 @@ public abstract class ResultVoUtil {
      * @return 结果
      */
     public static <V> String returnWithAttachment(int code, String message, V attachment) {
-        RestultVo<V> result = new RestultVo<V>()
+        ResultVo<V> result = new ResultVo<V>()
                 .setCode(code)
                 .setMessage(message)
                 .setAttachment(attachment);

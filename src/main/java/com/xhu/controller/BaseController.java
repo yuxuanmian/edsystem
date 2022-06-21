@@ -3,7 +3,7 @@ package com.xhu.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xhu.common.vo.RestultVo;
+import com.xhu.common.vo.ResultVo;
 import com.xhu.constant.ResultConstant;
 import com.xhu.utils.ResultVoUtil;
 
@@ -25,7 +25,7 @@ public abstract class BaseController {
      * @return 结果
      */
     protected String returnPages(IPage<?> result) {
-        RestultVo<Map<String, Object>> response = new RestultVo<>();
+        ResultVo<Map<String, Object>> response = new ResultVo<>();
 
         Map<String, Object> resMap = new HashMap<>();
         resMap.put("pageCount", result.getPages());
