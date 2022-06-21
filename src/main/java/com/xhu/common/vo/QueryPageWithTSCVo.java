@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QueryPageWithTSCVo {
+
+public class QueryPageWithTSCVo implements Serializable {
     private String studentId;
     private String studentName;
     private String teacherId;

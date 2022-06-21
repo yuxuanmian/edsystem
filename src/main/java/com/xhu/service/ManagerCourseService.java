@@ -1,7 +1,7 @@
 package com.xhu.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xhu.common.vo.TCourse;
+import com.xhu.entity.vo.TCourse;
 import com.xhu.entity.*;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public interface ManagerCourseService {
     int addTeacherCourse(TeacherCourse teacherCourse);
 
     //获取所有课程
-    IPage queryCourse(Map map,IPage<Course> iPage);
+    IPage queryCourse(IPage<Course> iPage);
 
     //获取最大的Cid
     String getMaxCid();
