@@ -26,13 +26,13 @@
         on t.teacherId=tc.teacherId JOIN course c on c.courseId=tc.courseId
         <where>
             <if test="courseId != null">
-                 c.courseId like "%"#{courseId}"%"
+                 c.courseId like concat("%,"#{courseId}",%")
             </if>
             <if test="courseName != null">
-                and c.courseName like "%"#{courseName}"%"
+                and c.courseName like concat("%,"#{courseName}",%")
             </if>
             <if test="teacherName != null">
-                and t.teacherName like "%"#{teacherName}"%"
+                and t.teacherName like concat("%,"#{teacherName}",%")
             </if>
         </where>
     </select>
@@ -83,9 +83,8 @@
          values (#{courseId},#{teacherId},#{place},#{lessonTime},1)
     </insert>
 
-    <select id="queryCourse" parameterType="map" resultType="course">
+    <select id="queryCourse" resultType="course">
         select * from course order by courseId
---          limit #{page},#{size}
     </select>
     <select id="queryCourseCount" parameterType="map" resultType="int">
         select count(*) from course order by courseId

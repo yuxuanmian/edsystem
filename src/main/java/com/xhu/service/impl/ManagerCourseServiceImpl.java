@@ -8,6 +8,7 @@ import com.xhu.service.ManagerCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.Soundbank;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
             int checkCount = managerCourseMapper.queryCheckCount(courseId, teacherId);
             allCourseList.getRecords().get(i).setCheckCount(checkCount);
         }
-//        int count = managerCourseMapper.queryConunt(map);
+        System.out.println(allCourseList.getTotal());
         return allCourseList;
     }
 
