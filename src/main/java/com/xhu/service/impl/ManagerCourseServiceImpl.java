@@ -1,7 +1,7 @@
 package com.xhu.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xhu.common.vo.TCourse;
+import com.xhu.entity.vo.TCourse;
 import com.xhu.entity.*;
 import com.xhu.mapper.ManagerCourseMapper;
 import com.xhu.service.ManagerCourseService;
@@ -16,15 +16,15 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
     @Autowired
     private ManagerCourseMapper managerCourseMapper;
 
-    public IPage<TCourse> queryAll(Map map,IPage<TCourse> iPage) {
-        IPage<TCourse> allCourseList = managerCourseMapper.query(map,iPage);
+    public IPage<TCourse> queryAll(Map map, IPage<TCourse> iPage) {
+        IPage<TCourse> allCourseList = managerCourseMapper.query(map, iPage);
         for (int i = 0; i < allCourseList.getRecords().size(); i++) {
             String teacherId=allCourseList.getRecords().get(i).getTeacherId();
             String courseId=allCourseList.getRecords().get(i).getCourseId();
             int checkCount = managerCourseMapper.queryCheckCount(courseId, teacherId);
             allCourseList.getRecords().get(i).setCheckCount(checkCount);
         }
-        int count = managerCourseMapper.queryConunt(map);
+//        int count = managerCourseMapper.queryConunt(map);
         return allCourseList;
     }
 
@@ -61,8 +61,8 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
     }
 
     @Override
-    public IPage<Course> queryCourse(Map map,IPage<Course> iPage) {
-        IPage<Course> courseIPage = managerCourseMapper.queryCourse(map,iPage);
+    public IPage<Course> queryCourse(IPage<Course> iPage) {
+        IPage<Course> courseIPage = managerCourseMapper.queryCourse(iPage);
         return courseIPage;
     }
 
