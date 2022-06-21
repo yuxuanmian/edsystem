@@ -1,6 +1,8 @@
 package com.xhu.service.impl;
 
-import com.mysql.cj.QueryResult;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xhu.common.vo.TCourse;
+import com.xhu.entity.*;
 import com.xhu.mapper.ManagerCourseMapper;
 import com.xhu.service.ManagerCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +16,16 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
     @Autowired
     private ManagerCourseMapper managerCourseMapper;
 
-    public QueryResult queryAll(Map map) {
-        List<TCourse> allCourseList = managerCourseMapper.query(map);
-        for (int i = 0; i < allCourseList.size(); i++) {
-            String teacherId=allCourseList.get(i).getTeacherId();
-            String courseId=allCourseList.get(i).getCourseId();
+    public IPage<TCourse> queryAll(Map map,IPage<TCourse> iPage) {
+        IPage<TCourse> allCourseList = managerCourseMapper.query(map,iPage);
+        for (int i = 0; i < allCourseList.getRecords().size(); i++) {
+            String teacherId=allCourseList.getRecords().get(i).getTeacherId();
+            String courseId=allCourseList.getRecords().get(i).getCourseId();
             int checkCount = managerCourseMapper.queryCheckCount(courseId, teacherId);
-            allCourseList.get(i).setCheckCount(checkCount);
+            allCourseList.getRecords().get(i).setCheckCount(checkCount);
         }
         int count = managerCourseMapper.queryConunt(map);
-        QueryResult queryResult = new QueryResult();
-        queryResult.setList(allCourseList);
-        queryResult.setCount(count);
-        return queryResult;
+        return allCourseList;
     }
 
     public StudentCourse queryBySidCidTid(StudentCourse studentCourse) {
@@ -62,11 +61,9 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
     }
 
     @Override
-    public QueryResult queryCourse(Map map) {
-        QueryResult queryResult = new QueryResult();
-        queryResult.setList(managerCourseMapper.queryCourse(map));
-        queryResult.setCount(managerCourseMapper.queryCourseCount(map));
-        return queryResult;
+    public IPage<Course> queryCourse(Map map,IPage<Course> iPage) {
+        IPage<Course> courseIPage = managerCourseMapper.queryCourse(map,iPage);
+        return courseIPage;
     }
 
     @Override

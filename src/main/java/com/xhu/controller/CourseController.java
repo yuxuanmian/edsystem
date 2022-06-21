@@ -3,7 +3,7 @@ package com.xhu.controller;
 import com.alibaba.fastjson.JSON;
 import com.xhu.common.vo.QueryPageWithTSCVo;
 import com.xhu.common.vo.QueryVo;
-import com.xhu.pojo.Course;
+import com.xhu.entity.Course;
 import com.xhu.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

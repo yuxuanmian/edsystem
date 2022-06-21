@@ -4,7 +4,7 @@ package com.xhu.service;
 import com.xhu.common.vo.QueryPageWithTSCVo;
 import com.xhu.common.vo.QueryVo;
 import com.xhu.common.vo.ResultVo;
-import com.xhu.pojo.Course;
+import com.xhu.entity.Course;
 
 public interface CourseService {
 

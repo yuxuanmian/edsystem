@@ -1,4 +1,4 @@
-package com.xhu.pojo;
+package com.xhu.entity;
 
 import java.sql.Timestamp;
 

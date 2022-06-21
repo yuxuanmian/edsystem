@@ -1,6 +1,6 @@
 package com.xhu.mapper;
 
-import com.xhu.pojo.Course;
+import com.xhu.entity.Course;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

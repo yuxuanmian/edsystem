@@ -5,7 +5,7 @@ import com.xhu.common.vo.QueryVo;
 import com.xhu.common.vo.ResultVo;
 import com.xhu.constant.ResultConstant;
 import com.xhu.mapper.CourseMapper;
-import com.xhu.pojo.Course;
+import com.xhu.entity.Course;
 import com.xhu.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

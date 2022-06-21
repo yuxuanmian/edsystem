@@ -1,15 +1,15 @@
 package com.xhu.service;
 
-
-import com.mysql.cj.QueryResult;
-import com.xhu.pojo.StudentCourse;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xhu.common.vo.TCourse;
+import com.xhu.entity.*;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ManagerCourseService {
     //查询全校课表
-    QueryResult queryAll(Map map);
+    IPage<TCourse> queryAll(Map map,IPage<TCourse> iPage);
 
     //查询当前学生是否选择该课程
     StudentCourse queryBySidCidTid(StudentCourse studentCourse);
@@ -30,7 +30,7 @@ public interface ManagerCourseService {
     int addTeacherCourse(TeacherCourse teacherCourse);
 
     //获取所有课程
-    QueryResult queryCourse(Map map);
+    IPage queryCourse(Map map,IPage<Course> iPage);
 
     //获取最大的Cid
     String getMaxCid();
