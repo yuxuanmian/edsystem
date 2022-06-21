@@ -80,7 +80,7 @@ public class ManagerCourseController extends BaseController {
             response.setMessage("课程冲突");
             return JSON.toJSONString(response);
         } else {
-            return JSON.toJSONString(this.returnSuccessWithNoData("选课成功"));
+            return this.returnSuccessWithNoData("选课成功");
         }
     }
 
@@ -93,7 +93,7 @@ public class ManagerCourseController extends BaseController {
             response.setMessage("违法访问");
             return JSON.toJSONString(response);
         } else {
-            return JSON.toJSONString(this.returnSuccessWithNoData("删除课程成功"));
+            return this.returnSuccessWithNoData("删除课程成功");
         }
     }
 
@@ -106,7 +106,7 @@ public class ManagerCourseController extends BaseController {
             response.setMessage("课程存在");
             return JSON.toJSONString(response);
         } else {
-            return JSON.toJSONString(this.returnSuccessWithNoData("添加成功"));
+            return this.returnSuccessWithNoData("添加成功");
         }
     }
 
@@ -119,7 +119,7 @@ public class ManagerCourseController extends BaseController {
             response.setMessage("课程冲突");
             return JSON.toJSONString(response);
         } else {
-            return JSON.toJSONString(this.returnSuccessWithNoData("添加任课教师成功"));
+            return this.returnSuccessWithNoData("添加任课教师成功");
         }
     }
 
@@ -130,7 +130,7 @@ public class ManagerCourseController extends BaseController {
         iPage.setCurrent(queryVo.getStartIndex());
         iPage.setSize(queryVo.getLimit());
         IPage iPage1 = managerCourseService.queryCourse(iPage);
-        return JSON.toJSONString(this.returnPages(iPage1));
+        return this.returnPages(iPage1);
 
     }
 
@@ -144,7 +144,7 @@ public class ManagerCourseController extends BaseController {
         List<Teacher> teachers = managerCourseService.queryNoTeachByCid(map.get("courseId"));
         ResultVo<?> respone=new ResultVo<>();
         if (teachers != null) {
-            return JSON.toJSONString(this.returnSuccessWithData("查询成功",teachers));
+            return this.returnSuccessWithData("查询成功",teachers);
         } else {
             respone.setCode(ResultConstant.FAILED);
             respone.setMessage("暂无教师可选");

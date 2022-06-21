@@ -28,10 +28,12 @@ public abstract class BaseController {
         ResultVo<Map<String, Object>> response = new ResultVo<>();
 
         Map<String, Object> resMap = new HashMap<>();
+        resMap.put("count",result.getTotal());
         resMap.put("pageCount", result.getPages());
         resMap.put("content", result.getRecords());
 
         response.setCode(ResultConstant.SUCCESS);
+        response.setMessage("查询成功");
         response.setAttachment(resMap);
 
         return JSON.toJSONString(response);
