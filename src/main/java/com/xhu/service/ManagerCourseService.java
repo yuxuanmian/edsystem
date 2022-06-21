@@ -1,7 +1,7 @@
 package com.xhu.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xhu.common.vo.TCourse;
+import com.xhu.entity.vo.TCourse;
 import com.xhu.entity.*;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xhu.common.vo.QueryPageWithTSCVo;
 import com.xhu.common.vo.QueryVo;
 import com.xhu.common.vo.ResultVo;
-import com.xhu.common.vo.TCourse;
+import com.xhu.entity.vo.TCourse;
 import com.xhu.constant.ResultConstant;
 import com.xhu.entity.Course;
 import com.xhu.entity.StudentCourse;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.security.provider.certpath.OCSP;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +35,7 @@ public class ManagerCourseController extends BaseController {
      * String courseId, String courseName, String teacherName, QueryVo queryVo
      */
     public String queryAll(@RequestBody QueryPageWithTSCVo queryPageWithTSCVo) {
+        System.out.println(queryPageWithTSCVo.toString());
         Map<String, Object> map = new HashMap<>();
         map.put("courseId", queryPageWithTSCVo.getCourseId());
         map.put("courseName", queryPageWithTSCVo.getCourseName());
@@ -45,7 +45,7 @@ public class ManagerCourseController extends BaseController {
         iPage.setSize(queryPageWithTSCVo.getLimit());
         IPage<TCourse> tCourseIPage = managerCourseService.queryAll(map, iPage);
 
-        return JSON.toJSONString(this.returnPages(tCourseIPage));
+        return this.returnPages(tCourseIPage);
     }
 
     //查询当前学生是否选择该课程
@@ -58,15 +58,17 @@ public class ManagerCourseController extends BaseController {
         if (managerCourseService.queryStudentBySid(studentCourse.getStudentId()) == null) {
             resultVo.setCode(ResultConstant.NOTFOUND);
             resultVo.setMessage("学生不存在");
+            return JSON.toJSONString(resultVo);
         }
         if (managerCourseService.queryBySidCidTid(studentCourse) == null) {
             resultVo.setCode(ResultConstant.NOTCHECK);
             resultVo.setMessage("当前学生未选择该门课程");
+            return JSON.toJSONString(resultVo);
         } else {
-            return JSON.toJSONString(this.returnSuccessWithNoData("当前学生已选择该门课程"));
+            resultVo.setCode(ResultConstant.SUCCESS);
+            resultVo.setMessage("当前学生已选择该门课程");
+            return JSON.toJSONString(resultVo);
         }
-
-        return JSON.toJSONString(resultVo);
     }
 
     //为当前学生选课

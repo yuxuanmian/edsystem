@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.xhu.mapper.CourseMapper">
-    <update id="updateExam" parameterType="com.edsystem.pojo.Course">
+    <update id="updateExam" parameterType="course">
         update course set examTime=#{examTime},examPlace=#{examPlace} where courseId=#{courseId}
     </update>
     <select id="selectExamByStudentId" resultMap="courseMap">
@@ -51,7 +51,7 @@
     <select id="totalSize" resultType="int">
         select count(*) from course
     </select>
-    <resultMap id="courseMap" type="com.edsystem.pojo.Course">
+    <resultMap id="courseMap" type="course">
         <id property="id" column="id"></id>
         <result property="courseId" column="courseId"></result>
         <result property="courseName" column="courseName"></result>

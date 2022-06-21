@@ -1,4 +1,4 @@
-package com.xhu.common.vo;
+package com.xhu.entity.vo;
 import java.io.Serializable;
 
 public class TCourse implements Serializable {

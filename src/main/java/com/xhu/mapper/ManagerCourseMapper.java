@@ -1,7 +1,7 @@
 package com.xhu.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xhu.common.vo.TCourse;
+import com.xhu.entity.vo.TCourse;
 import com.xhu.entity.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public interface ManagerCourseMapper {
     //查询全校课程
-    IPage<TCourse> query(Map map,IPage<TCourse> iPage);
+    IPage<TCourse> query(@Param("map") Map map,IPage<?> iPage);
     //查询全校课表总数
     int queryConunt(Map map);
     //查询每课的选课人数
