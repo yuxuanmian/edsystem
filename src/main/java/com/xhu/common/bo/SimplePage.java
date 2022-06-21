@@ -7,10 +7,10 @@ public class SimplePage {
     /**
      * 当前第几页
      */
-    private int current;
+    private int page;
 
     /**
      * 每页大小
      */
-    private int size;
+    private int limit;
 }

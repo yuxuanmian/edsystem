@@ -1,10 +1,8 @@
 package com.xhu.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.edsystem.mapper.TeacherCourseMapper;
-import com.edsystem.pojo.vo.TCourse;
-import com.edsystem.result.QueryResult;
-import com.edsystem.service.TeacherCourseService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xhu.entity.Student;
 import com.xhu.entity.vo.TCourse;
 import com.xhu.mapper.TeacherCourseMapper;
 import com.xhu.service.TeacherCourseService;
@@ -20,24 +18,24 @@ public class TeacherCourseServiceImpl implements TeacherCourseService {
     private TeacherCourseMapper teacherCourseMapper;
 
     @Override
-    public IPage<TCourse> query(Map<String,?> map) {
-        IPage<TCourse> iPage = teacherCourseMapper.query(map);
-        for (int i = 0; i < allCourseList.size(); i++) {
-            String teacherId=allCourseList.get(i).getTeacherId();
-            String courseId=allCourseList.get(i).getCourseId();
+    public IPage<TCourse> query(Map<String, Object> map, int page, int limit) {
+        IPage<TCourse> iPage = teacherCourseMapper.query(map, new Page<>(page,limit));
+        List<TCourse> allCourseList = iPage.getRecords();
+
+        allCourseList.forEach(tCourse -> {
+            String teacherId = tCourse.getTeacherId();
+            String courseId = tCourse.getCourseId();
             int checkCount = teacherCourseMapper.queryCheckCount(courseId, teacherId);
-            allCourseList.get(i).setCheckCount(checkCount);
-        }
-        queryResult.setList(allCourseList);
-        queryResult.setCount(teacherCourseMapper.queryConunt(map));
+            tCourse.setCheckCount(checkCount);
+        });
+
         return iPage;
     }
 
     @Override
-    public IPage<TCourse> queryCheckStudent(String teacherId, String courseId, int page, int size) {
-        QueryResult queryResult = new QueryResult();
-        queryResult.setList(teacherCourseMapper.queryCheckStudent(teacherId,courseId,page,size));
-        queryResult.setCount(teacherCourseMapper.queryCheckStudentCount(teacherId,courseId));
-        return queryResult;
+    public IPage<Student> queryCheckStudent(String teacherId, String courseId, int page, int size) {
+        IPage<Student> iPage = new Page<>(page, size);
+        iPage = teacherCourseMapper.queryCheckStudent(teacherId, courseId, iPage);
+        return iPage;
     }
 }

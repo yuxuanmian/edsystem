@@ -18,9 +18,8 @@
                  join teacher_course tc
                       on t.teacherId = tc.teacherId
                  JOIN course c on c.courseId = tc.courseId
-        where t.teacherId = #{teacherId}
+        where t.teacherId = #{map.teacherId}
         order by tc.lessonTime
-        limit #{page},#{size}
     </select>
 
     <select id="queryConunt" parameterType="map" resultType="int">
@@ -58,7 +57,6 @@
         where teacherId = #{teacherId}
           and courseId = #{courseId}
         order by s.studentId
-        limit #{page},#{size}
     </select>
 
     <select id="queryCheckStudentCount" resultType="int">
