@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: yxm
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.xhu.entity
