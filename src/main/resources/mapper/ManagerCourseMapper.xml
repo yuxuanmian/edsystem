@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.edsystem.mapper.ManagerCourseMapper">
+<mapper namespace="com.xhu.mapper.ManagerCourseMapper">
     <!--查询全校课表-->
     <select id="query" resultType="tCourse" parameterType="map">
         select c.courseId,t.teacherId,c.courseName,c.courseTime,c.credit,c.lessonType,
@@ -19,7 +19,8 @@
                 and t.teacherName like "%"#{teacherName}"%"
             </if>
         </where>
-        order by c.courseId limit #{page},#{size}
+        order by c.courseId
+--         limit #{page},#{size}
     </select>
     <select id="queryConunt" parameterType="map" resultType="int">
         select count(*) from teacher t join teacher_course tc
@@ -84,7 +85,8 @@
     </insert>
 
     <select id="queryCourse" parameterType="map" resultType="course">
-        select * from course order by courseId limit #{page},#{size}
+        select * from course order by courseId
+--          limit #{page},#{size}
     </select>
     <select id="queryCourseCount" parameterType="map" resultType="int">
         select count(*) from course order by courseId

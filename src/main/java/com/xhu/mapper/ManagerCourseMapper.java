@@ -38,7 +38,7 @@ public interface ManagerCourseMapper {
     int addTeacherCourse(TeacherCourse teacherCourse);
 
     //查询所有课程
-    IPage<Course> queryCourse(Map map,IPage<Course> iPage);
+    IPage<Course> queryCourse(IPage<Course> iPage);
     int queryCourseCount(Map map);
 
     //查询最大的CourseId

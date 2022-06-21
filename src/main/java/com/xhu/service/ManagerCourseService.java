@@ -30,7 +30,7 @@ public interface ManagerCourseService {
     int addTeacherCourse(TeacherCourse teacherCourse);
 
     //获取所有课程
-    IPage queryCourse(Map map,IPage<Course> iPage);
+    IPage queryCourse(IPage<Course> iPage);
 
     //获取最大的Cid
     String getMaxCid();

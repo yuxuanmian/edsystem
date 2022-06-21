@@ -61,8 +61,8 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
     }
 
     @Override
-    public IPage<Course> queryCourse(Map map,IPage<Course> iPage) {
-        IPage<Course> courseIPage = managerCourseMapper.queryCourse(map,iPage);
+    public IPage<Course> queryCourse(IPage<Course> iPage) {
+        IPage<Course> courseIPage = managerCourseMapper.queryCourse(iPage);
         return courseIPage;
     }
 

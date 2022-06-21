@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.edsystem.mapper.CourseMapper">
+<mapper namespace="com.xhu.mapper.CourseMapper">
     <update id="updateExam" parameterType="com.edsystem.pojo.Course">
         update course set examTime=#{examTime},examPlace=#{examPlace} where courseId=#{courseId}
     </update>
