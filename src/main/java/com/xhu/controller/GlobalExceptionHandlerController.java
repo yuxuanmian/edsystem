@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandlerController {
     @ExceptionHandler({CustomRuntimeException.class})
-    public String normalExceptionHandler(Exception e){
-        return ResultVoUtil.returnWithoutAttahment(500, e.getMessage());
+    public String normalExceptionHandler(CustomRuntimeException e){
+        return ResultVoUtil.returnWithoutAttahment(e.getCode(), e.getMessage());
     }
 
 }
