@@ -28,13 +28,5 @@ public class QueryPageWithTSCVo implements Serializable {
     //开始序号
     private Integer startIndex;
 
-    /**
-     * 计算开始序号
-     * @return
-     */
-    public Integer getStartIndex() {
-        this.startIndex=(this.page-1)*this.limit;
-        return startIndex;
-    }
 
 }
