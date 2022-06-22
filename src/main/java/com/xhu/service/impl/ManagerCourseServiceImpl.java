@@ -19,12 +19,14 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
 
     public IPage<TCourse> queryAll(Map map, IPage<TCourse> iPage) {
         IPage<TCourse> allCourseList = managerCourseMapper.query(map, iPage);
+
         for (int i = 0; i < allCourseList.getRecords().size(); i++) {
             String teacherId=allCourseList.getRecords().get(i).getTeacherId();
             String courseId=allCourseList.getRecords().get(i).getCourseId();
             int checkCount = managerCourseMapper.queryCheckCount(courseId, teacherId);
             allCourseList.getRecords().get(i).setCheckCount(checkCount);
         }
+
         System.out.println(allCourseList.getTotal());
         return allCourseList;
     }

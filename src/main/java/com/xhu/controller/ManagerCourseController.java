@@ -13,7 +13,9 @@ import com.xhu.entity.StudentCourse;
 import com.xhu.entity.Teacher;
 import com.xhu.entity.TeacherCourse;
 import com.xhu.service.ManagerCourseService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,9 +52,6 @@ public class ManagerCourseController extends BaseController {
 
     //查询当前学生是否选择该课程
     @RequestMapping("/queryBySidCidTid")
-    /**
-     *
-     */
     public String queryBySidCidTid(@RequestBody StudentCourse studentCourse) {
         ResultVo<?> resultVo = new ResultVo<>();
         if (managerCourseService.queryStudentBySid(studentCourse.getStudentId()) == null) {
@@ -72,10 +71,14 @@ public class ManagerCourseController extends BaseController {
     }
 
     //为当前学生选课
+    // studentId,courseId,teacherId, String lessonTime
     @RequestMapping("/selectStudentCourse")
-    public String selectStudentCourse(StudentCourse studentCourse, String lessonTime) {
+    public String selectStudentCourse(@RequestBody QueryPageWithTSCVo queryPageWithTSCVo) {
+        System.out.println(queryPageWithTSCVo.toString());
         ResultVo<?> response = new ResultVo<>();
-        if (managerCourseService.selectStudentCourse(lessonTime, studentCourse) == 0) {
+        StudentCourse studentCourse = new StudentCourse();
+        BeanUtils.copyProperties(queryPageWithTSCVo,studentCourse);
+        if (managerCourseService.selectStudentCourse(queryPageWithTSCVo.getLessonTime(), studentCourse) == 0) {
             response.setCode(ResultConstant.NOTFOUND);
             response.setMessage("课程冲突");
             return JSON.toJSONString(response);
@@ -113,7 +116,7 @@ public class ManagerCourseController extends BaseController {
     //添加任课教师信息
     @RequestMapping("/addTeacherCourse")
     public String addTeacherCourse(@RequestBody TeacherCourse teacherCourse) {
-        ResultVo<?> response=new ResultVo<>();
+        ResultVo<?> response = new ResultVo<>();
         if (managerCourseService.addTeacherCourse(teacherCourse) == 0) {
             response.setCode(ResultConstant.FAILED);
             response.setMessage("课程冲突");
@@ -126,7 +129,7 @@ public class ManagerCourseController extends BaseController {
     //获取所有课程
     @RequestMapping("/queryCourse")
     public String queryCourse(@RequestBody QueryVo queryVo) {
-        IPage<Course> iPage =new Page<>();
+        IPage<Course> iPage = new Page<>();
         iPage.setCurrent(queryVo.getPage());
         iPage.setSize(queryVo.getLimit());
         IPage iPage1 = managerCourseService.queryCourse(iPage);
@@ -140,11 +143,11 @@ public class ManagerCourseController extends BaseController {
     }
 
     @RequestMapping("/queryNoTeachByCid")
-    public String queryNoTeachByCid(@RequestBody Map<String,String> map) {
+    public String queryNoTeachByCid(@RequestBody Map<String, String> map) {
         List<Teacher> teachers = managerCourseService.queryNoTeachByCid(map.get("courseId"));
-        ResultVo<?> respone=new ResultVo<>();
+        ResultVo<?> respone = new ResultVo<>();
         if (teachers != null) {
-            return this.returnSuccessWithData("查询成功",teachers);
+            return this.returnSuccessWithData("查询成功", teachers);
         } else {
             respone.setCode(ResultConstant.FAILED);
             respone.setMessage("暂无教师可选");
