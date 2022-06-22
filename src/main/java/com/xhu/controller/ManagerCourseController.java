@@ -41,7 +41,7 @@ public class ManagerCourseController extends BaseController {
         map.put("courseName", queryPageWithTSCVo.getCourseName());
         map.put("teacherName", queryPageWithTSCVo.getTeacherName());
         IPage iPage = new Page();
-        iPage.setCurrent(queryPageWithTSCVo.getStartIndex());
+        iPage.setCurrent(queryPageWithTSCVo.getPage());
         iPage.setSize(queryPageWithTSCVo.getLimit());
         IPage<TCourse> tCourseIPage = managerCourseService.queryAll(map, iPage);
 
@@ -127,7 +127,7 @@ public class ManagerCourseController extends BaseController {
     @RequestMapping("/queryCourse")
     public String queryCourse(@RequestBody QueryVo queryVo) {
         IPage<Course> iPage =new Page<>();
-        iPage.setCurrent(queryVo.getStartIndex());
+        iPage.setCurrent(queryVo.getPage());
         iPage.setSize(queryVo.getLimit());
         IPage iPage1 = managerCourseService.queryCourse(iPage);
         return this.returnPages(iPage1);
