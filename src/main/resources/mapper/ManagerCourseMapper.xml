@@ -10,13 +10,13 @@
         on t.teacherId=tc.teacherId JOIN course c on c.courseId=tc.courseId
         <where>
             <if test="map.courseId != null">
-                 c.courseId like "%"#{map.courseId}"%"
+                 c.courseId like concat('%',#{map.courseId},'%')
             </if>
             <if test="map.courseName != null">
-                and c.courseName like "%"#{map.courseName}"%"
+                and c.courseName like concat('%',#{map.courseName},'%')
             </if>
             <if test="map.teacherName != null">
-                and t.teacherName like "%"#{map.teacherName}"%"
+                and t.teacherName like concat('%',#{map.teacherName},'%')
             </if>
         </where>
         order by c.courseId
@@ -26,13 +26,13 @@
         on t.teacherId=tc.teacherId JOIN course c on c.courseId=tc.courseId
         <where>
             <if test="courseId != null">
-                 c.courseId like concat("%,"#{courseId}",%")
+                 c.courseId like concat('%',#{courseId},"%")
             </if>
             <if test="courseName != null">
-                and c.courseName like concat("%,"#{courseName}",%")
+                and c.courseName like concat('%',#{courseName},"%")
             </if>
             <if test="teacherName != null">
-                and t.teacherName like concat("%,"#{teacherName}",%")
+                and t.teacherName like concat('%',#{teacherName},"%")
             </if>
         </where>
     </select>
