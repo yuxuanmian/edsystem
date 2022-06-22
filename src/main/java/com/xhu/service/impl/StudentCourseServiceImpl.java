@@ -102,6 +102,7 @@ public class StudentCourseServiceImpl implements StudentCourseService {
         if (lessonTimeList.contains(lessonTime)) {
             throw new CustomRuntimeException("课程冲突", 3000);
         }
+        studentCourseMapper.addStudentCourse(studentCourse);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class TeacherCourseController extends BaseController {
     public String query(@RequestBody Map<String, ?> jsonStr) {
 
         SimplePage simplePage = MapToPojoUtil.convert(SimplePage.class, jsonStr);
-        String teacherId = jsonStr.get("teacher_id").toString();
+        String teacherId = jsonStr.get("teacherId").toString();
         Map<String, Object> map = new HashMap<>();
         map.put("teacherId", teacherId);
 
@@ -41,8 +41,8 @@ public class TeacherCourseController extends BaseController {
     @RequestMapping("/queryCheckStudent")
     public String queryCheckStudent(@RequestBody Map<String, ?> jsonStr) {
         SimplePage simplePage = MapToPojoUtil.convert(SimplePage.class, jsonStr);
-        String teacherId = jsonStr.get("teacher_id").toString();
-        String courseId = jsonStr.get("course_id").toString();
+        String teacherId = jsonStr.get("teacherId").toString();
+        String courseId = jsonStr.get("courseId").toString();
         IPage<Student> iPage = teacherCourseService.queryCheckStudent(teacherId, courseId,
                 simplePage.getPage(), simplePage.getLimit());
 
