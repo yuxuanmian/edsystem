@@ -1,5 +1,6 @@
 package com.xhu.controller;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xhu.common.vo.QueryVo;
 import com.xhu.entity.Notice;
 import com.xhu.service.NoticeService;
@@ -22,6 +23,7 @@ public class NoticeController extends BaseController{
 
     @RequestMapping(value = "/insertNotice")
     public String insertNotice(@RequestBody Notice notice){
+        System.out.println(notice.getSendtime());
         return JSON.toJSONString(noticeService.insertNotice(notice));
     }
 
@@ -36,13 +38,13 @@ public class NoticeController extends BaseController{
     }
 
     @RequestMapping(value = "/selectNoticeByRole")
-    public String selectNoticeByRole(@RequestBody Map<String,String> map){
+    public String selectNoticeByRole(@RequestBody Map<String,?> map){
         QueryVo queryVo = MapToPojoUtil.convert(QueryVo.class, map);
-        return this.returnPages(noticeService.selectNoticeByRole(map.get("recept_role"),queryVo));
+        return this.returnPages(noticeService.selectNoticeByRole((String) map.get("recept_role"),queryVo));
     }
 
     @RequestMapping(value = "/selectAllNotice")
     public String selectAllNotice(@RequestBody QueryVo queryVo){
-        return JSON.toJSONString(noticeService.selectNoticeList(queryVo));
+        return this.returnPages(noticeService.selectNoticeList(queryVo));
     }
 }

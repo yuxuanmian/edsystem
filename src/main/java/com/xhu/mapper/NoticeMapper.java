@@ -3,9 +3,11 @@ package com.xhu.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xhu.entity.Notice;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface NoticeMapper {
 
     //添加公告

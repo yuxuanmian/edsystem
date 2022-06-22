@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
-    @Autowired(required = false)
+    @Autowired
     private NoticeMapper noticeMapper;
 
     @Override
