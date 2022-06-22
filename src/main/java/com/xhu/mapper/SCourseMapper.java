@@ -7,15 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 @Repository
 public interface SCourseMapper {
-    //计算总页数
-    Integer countStudentCourseTotalSize();
-
     //分页显示
-    IPage<SCourse> findStudentCourseList(IPage<SCourse> iPage);
+    IPage<SCourse> findStudentCourseList(@Param("map") Map<String,String> map, IPage<SCourse> iPage);
 
     //添加成绩
     Integer addStudentCourse(StudentCourse studentCourse);

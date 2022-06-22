@@ -1,22 +1,18 @@
 package com.xhu.service;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xhu.common.vo.ResultVo;
 import com.xhu.entity.StudentCourse;
+import com.xhu.entity.vo.SCourse;
+
+import java.util.Map;
 
 public interface SCourseService {
 
     /**
-     * 查询课程总记录数
+     *包含很多数据，
      * @return
      */
-    Integer countStudentCourseTotalSize();
-
-    /**
-     *
-     * @param page
-     * @param limit
-     * @return
-     */
-    ResultVo<?> findStudentCourseList(Integer page, Integer limit);
+    IPage<SCourse> findStudentCourseList(Map<String,String> map);
 
     //添加学生成绩
     ResultVo<?> addStudentCourse(StudentCourse studentCourse);

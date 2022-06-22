@@ -3,14 +3,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xhu.mapper.SCourseMapper">
     <!--分页-->
-    <select id="findStudentCourseList" resultType="com.xhu.entity.StudentCourse">
-        select * from student_course limit #{param1},#{param2}
+    <select id="findStudentCourseList" parameterType="map" resultType="sCourse">
+        select s.studentId,s.studentName,s.phone studentPhone,s.address,s.level,s.sex studentSex
+,c.courseId,c.courseName,c.courseTime,c.credit,c.lessonType
+,sc.score
+ ,t.teacherId,t.teacherName,t.sex teacherSex,t.grade,t.rank,t.phone teacherPhone
+from
+student s join course c
+ join student_course sc on sc.studentId=s.studentId and sc.courseId = c.courseId
+  join teacher t on sc.teacherId=t.teacherId join teacher_course tc
+	 on tc.teacherId=sc.teacherId and tc.courseId=sc.courseId
+        <where>
+            <if test="map.studentId != null">
+                s.studentId like concat("%",#{map.studentId},"%")
+            </if>
+            <if test="map.studentName != null">
+                s.studentName like concat("%",#{map.studentName},"%")
+            </if>
+            <if test="map.teacherName != null">
+                t.teacherName like concat("%",#{map.teacherName},"%")
+            </if>
+            <if test="map.courseName != null">
+                c.courseName like concat("%",#{map.courseName},"%")
+            </if>
+        </where>
+        order by s.studentId
     </select>
 
-    <!--搜索总记录数-->
-    <select id="countStudentCourseTotalSize" resultType="java.lang.Integer">
-        select count(*) from student_course
-    </select>
     <!--添加成绩-->
     <insert id="addStudentCourse" parameterType="com.xhu.entity.StudentCourse">
         insert into student_course(id,studentId,courseId,teacherId,score)
@@ -40,9 +59,6 @@
     </delete>
 
 
-
-
-
     <select id="glyselect" resultType="com.xhu.entity.StudentCourse">
         select * from student_course
         <where>
@@ -56,7 +72,7 @@
                 and courseId=#{courseId}
             </if>
         </where>
-             limit #{page},#{limit}
+        limit #{page},#{limit}
     </select>
 
     <select id="countglyselect" resultType="java.lang.Integer">
@@ -127,7 +143,6 @@
     <select id="countStudentCourseByTeacherTotalSize" resultType="java.lang.Integer">
         select count(*) from student_course where teacherId=#{param1}
     </select>
-
 
 
 </mapper>
