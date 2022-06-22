@@ -5,6 +5,7 @@
     <update id="updateExam" parameterType="course">
         update course set examTime=#{examTime},examPlace=#{examPlace} where courseId=#{courseId}
     </update>
+
     <select id="selectExamByStudentId" resultMap="courseMap">
         select * from course c join student_course sc on c.courseId=sc.courseId
         <where>

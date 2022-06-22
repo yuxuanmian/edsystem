@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xhu.mapper.SCourseMapper">
+    <!--分页-->
+    <select id="findStudentCourseList" resultType="com.xhu.entity.StudentCourse">
+        select * from student_course limit #{param1},#{param2}
+    </select>
+
+    <!--搜索总记录数-->
+    <select id="countStudentCourseTotalSize" resultType="java.lang.Integer">
+        select count(*) from student_course
+    </select>
+    <!--添加成绩-->
+    <insert id="addStudentCourse" parameterType="com.xhu.entity.StudentCourse">
+        insert into student_course(id,studentId,courseId,teacherId,score)
+        value(#{id},#{studentId},#{courseId},#{teacherId},#{score})
+    </insert>
+
+    <!--根据学号搜索所有成绩成绩-->
+
+    <!--根据课程号搜索所有学生成绩-->
+    <select id="selectBycouseID" resultType="com.xhu.entity.StudentCourse">
+        select studentId,score from student_course where courseId=#{courseId}
+    </select>
+
+    <!--根据Id查询-->
+    <select id="selectByID" resultType="com.xhu.entity.StudentCourse">
+        select * from student_course where id=#{id}
+    </select>
+
+    <!--根据课程号搜索所有学生成绩-->
+    <update id="updateByID" parameterType="com.xhu.entity.StudentCourse">
+        update student_course set studentId=#{studentId},courseId=#{courseId},score=#{score},teacherId=#{teacherId} where id=#{id}
+    </update>
+
+    <!--根据Id删除学生信息-->
+    <delete id="deleteByID" parameterType="int">
+        delete from student_course where id=#{id}
+    </delete>
+
+
+
+
+
+    <select id="glyselect" resultType="com.xhu.entity.StudentCourse">
+        select * from student_course
+        <where>
+            <if test="studentId != null">
+                studentId=#{studentId}
+            </if>
+            <if test="teacherId != null">
+                and teacherId=#{teacherId}
+            </if>
+            <if test="courseId != null">
+                and courseId=#{courseId}
+            </if>
+        </where>
+             limit #{page},#{limit}
+    </select>
+
+    <select id="countglyselect" resultType="java.lang.Integer">
+        select count(*) from student_course
+        <where>
+            <if test="studentId != null">
+                studentId=#{param1}
+            </if>
+            <if test="teacherId != null">
+                and teacherId=#{param2}
+            </if>
+            <if test="courseId != null">
+                and courseId=#{param3}
+            </if>
+        </where>
+    </select>
+
+    <select id="lsselect" resultType="com.xhu.entity.StudentCourse">
+        select * from student_course
+        <where>
+            <if test="studentId != null">
+                studentId=#{studentId}
+            </if>
+            <if test="courseId != null">
+                and courseId=#{courseId}
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="countlsselect" resultType="java.lang.Integer">
+        select count(*) from student_course
+        <where>
+            <if test="studentId != null">
+
+                studentId=#{studentId}
+            </if>
+            <if test="courseId != null">
+                and courseId=#{courseId}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="xsselect" resultType="com.xhu.entity.StudentCourse">
+        select * from student_course where courseId=#{courseId} limit #{page},#{limit}
+    </select>
+
+    <select id="countxsselect" resultType="java.lang.Integer">
+        select count(*) from student_course where courseId=#{param1}
+    </select>
+
+    <!--根据登录的学生不同分页-->
+    <select id="findStudentCourseByStudentList" resultType="com.xhu.entity.StudentCourse">
+        select * from student_course where studentId=#{param1} limit #{param2},#{param3}
+    </select>
+
+    <!--根据登录的学生不同分页-->
+    <select id="countStudentCourseByStudentTotalSize" resultType="java.lang.Integer">
+        select count(*) from student_course  where studentId=#{param1}
+    </select>
+
+    <select id="findStudentCourseByTeacherList" resultType="com.xhu.entity.StudentCourse">
+        select * from student_course where teacherId=#{param1} limit #{param2},#{param3}
+
+    </select>
+
+    <select id="countStudentCourseByTeacherTotalSize" resultType="java.lang.Integer">
+        select count(*) from student_course where teacherId=#{param1}
+    </select>
+
+
+
+</mapper>

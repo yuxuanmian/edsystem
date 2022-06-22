@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CourseMapper {
     //添加考试安排
-    void updateExam(Course course);
+    Integer updateExam(Course course);
     //根据学生id查询考试安排
     List<Course> selectExamByStudentId(String studentId,Integer page,Integer limit);
     //根据教师id查询考试安排
