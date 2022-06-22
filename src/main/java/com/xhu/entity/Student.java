@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Student {
 
-  private int id;
+  private Integer id;
   private String studentId;
   private String studentName;
   private Timestamp birthday;
