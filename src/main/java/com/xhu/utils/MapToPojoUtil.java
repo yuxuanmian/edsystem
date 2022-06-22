@@ -2,9 +2,8 @@ package com.xhu.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 从封装了json的map中得到pojo类
@@ -25,7 +24,9 @@ public class MapToPojoUtil {
      */
     public static <T> T convert(Class<T> aClass, Map<String, ?> jsonStrMap) {
         //将所有的key转换为小写并去除所有的"_"
-        jsonStrMap.forEach((k, v) -> k = k.replace("_", "").toLowerCase());
+        Map<String,Object> newMap=new HashMap<>();
+        jsonStrMap.forEach((k,v)-> newMap.put(k.toLowerCase(), v));
+        jsonStrMap=newMap;
         //用户返回
         T t = null;
         try {
@@ -44,13 +45,14 @@ public class MapToPojoUtil {
             }
             //用于lambda表达式
             T finalT = t;
+            Map<String, ?> finalJsonStrMap = jsonStrMap;
             getMethods.forEach((method -> {
                 //将方法名去掉set并转换为小写，然后和map中的key对比
                 String param = method.getName().substring(3).toLowerCase();
-                if (jsonStrMap.containsKey(param)) {
+                if (finalJsonStrMap.containsKey(param)) {
                     try {
                         //执行set方法
-                        method.invoke(finalT, jsonStrMap.get(param));
+                        method.invoke(finalT, finalJsonStrMap.get(param));
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
                     }
