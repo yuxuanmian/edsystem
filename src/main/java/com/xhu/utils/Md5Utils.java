@@ -1,11 +1,15 @@
 package com.xhu.utils;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Md5Utils {
+public abstract class Md5Utils {
 
-    public static String md5Password(String password){
-        try {
+    private Md5Utils(){}
+
+    public static String md5Password(String password) throws NoSuchAlgorithmException {
+
+
             MessageDigest messageDigest = MessageDigest.getInstance("md5");
 
             byte[] digest = messageDigest.digest(password.getBytes());
@@ -14,9 +18,6 @@ public class Md5Utils {
 
             byte[] encode = encoder.encode(digest);
             return new String(encode);
-        }catch (Exception e){
-            System.out.println("------------》加密失败");
-            return password;
-        }
+
     }
 }

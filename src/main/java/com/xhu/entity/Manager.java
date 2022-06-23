@@ -2,7 +2,7 @@ package com.xhu.entity;
 
 public class Manager {
 
-  private int id;
+  private Integer id;
   private String managerId;
   private String managerName;
   private String password;
