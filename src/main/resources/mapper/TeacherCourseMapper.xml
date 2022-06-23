@@ -42,7 +42,8 @@
 
 
     <select id="queryCheckStudent" resultType="student">
-        select s.studentId,
+        select s.id,
+                s.studentId,
                s.studentName,
                s.birthday,
                s.phone,

@@ -12,11 +12,11 @@ public class Student {
   private String email;
   private String address;
   private String note;
-  private int status;
+  private Integer status;
   private String level;
   private Timestamp createTime;
-  private int roleId;
-  private int sex;
+  private Integer roleId;
+  private Integer sex;
   private String password;
 
   public Student(int id, String studentId, String studentName, Timestamp birthday, String phone, String email, String address, String note, int status, String level, Timestamp createTime, int roleId, int sex, String password) {
