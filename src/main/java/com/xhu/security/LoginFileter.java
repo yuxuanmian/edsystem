@@ -54,13 +54,13 @@ public class LoginFileter extends UsernamePasswordAuthenticationFilter {
                 String verifycode = map.get(this.getKapchakeyParameter());
 
                 //先判断验证码
-                /*Object sessionCaptcha = request.getSession().getAttribute(ParameterConstant.VERIFY_CODE.value());
+                Object sessionCaptcha = request.getSession().getAttribute(ParameterConstant.VERIFY_CODE.value());
                 if (ObjectUtils.isEmpty(sessionCaptcha)) {
                     throw new AuthenticationServiceException("非法登录");
                 }
                 if (!StringUtils.equalsIgnoreCase(verifycode, sessionCaptcha.toString().trim())) {
                     throw new AuthenticationServiceException("验证码错误");
-                }*/
+                }
 
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
                 setDetails(request, token);
