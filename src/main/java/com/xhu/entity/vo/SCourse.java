@@ -25,6 +25,7 @@ public class SCourse {
     private String lessonType;
 
     private Integer score;
+    private Integer id;
 
     private String teacherId;
     private String teacherName;

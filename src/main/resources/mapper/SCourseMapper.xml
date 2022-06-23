@@ -6,7 +6,7 @@
     <select id="managerCherckAllStudetScore" parameterType="map" resultType="sCourse">
         select s.studentId,s.studentName,s.phone studentPhone,s.address,s.level,s.sex studentSex
         ,c.courseId,c.courseName,c.courseTime,c.credit,c.lessonType
-        ,sc.score
+        ,sc.id,sc.score
         ,t.teacherId,t.teacherName,t.sex teacherSex,t.grade,t.rank,t.phone teacherPhone
         from
         student s join course c
@@ -36,5 +36,67 @@
         order by s.studentId
     </select>
 
+    <select id="queryAllTeacher" resultType="teacher">
+     	 select teacherId,teacherName from teacher
+    </select>
+
+    <select id="queryAllCourse" resultType="course">
+        select courseId,courseName from course
+    </select>
+
+    <update id="managerUpdateStudentScore" parameterType="studentCourse">
+        update student_course set score=#{score} where id=#{id}
+    </update>
+
+    <!--老师查询所有课程成绩-->
+    <select id="teacherCherckAllStudetScore" parameterType="map" resultType="sCourse">
+        select s.studentId,s.studentName,s.phone studentPhone,s.address,s.level,s.sex studentSex
+        ,c.courseId,c.courseName,c.courseTime,c.credit,c.lessonType
+        ,sc.id,sc.score
+        ,t.teacherId,t.teacherName,t.sex teacherSex,t.grade,t.rank,t.phone teacherPhone
+        from
+        student s join course c
+        join student_course sc on sc.studentId=s.studentId and sc.courseId = c.courseId
+        join teacher t on sc.teacherId=t.teacherId join teacher_course tc
+        on tc.teacherId=sc.teacherId and tc.courseId=sc.courseId
+        <where>
+            t.teacherId =#{map.teacherId}
+
+            <if test="map.studentId != null">
+                s.studentId like concat("%",#{map.studentId},"%")
+            </if>
+            <if test="map.studentName != null">
+                s.studentName like concat("%",#{map.studentName},"%")
+            </if>
+            <if test="map.courseId != null">
+                c.courseId like concat("%",#{map.courseId},"%")
+            </if>
+        </where>
+        order by c.courseId
+    </select>
+
+    <update id="teacherAddStduentScore" parameterType="studentCourse">
+        update student_course set score=#{score} where id=#{id}
+    </update>
+
+    <select id="queryMyCourse" resultType="tCourse">
+        select t.teacherId,tc.courseId,c.courseName from teacher t
+            join teacher_course tc on tc.teacherId = t.teacherId
+                join course c on c.courseId = tc.courseId
+	                 where t.teacherId=#{teacherId}
+    </select>
+
+    <select id="studentCheckMyScore" parameterType="map" resultType="sCourse">
+        select s.studentId,s.studentName,s.phone studentPhone,s.address,s.level,s.sex studentSex
+        ,c.courseId,c.courseName,c.courseTime,c.credit,c.lessonType
+        ,sc.id,sc.score
+        ,t.teacherId,t.teacherName,t.sex teacherSex,t.grade,t.rank,t.phone teacherPhone
+        from
+        student s join course c
+        join student_course sc on sc.studentId=s.studentId and sc.courseId = c.courseId
+        join teacher t on sc.teacherId=t.teacherId join teacher_course tc
+        on tc.teacherId=sc.teacherId and tc.courseId=sc.courseId
+         where s.studentId =#{map.studentId} and sc.score is not null order by c.courseId
+    </select>
 
 </mapper>
