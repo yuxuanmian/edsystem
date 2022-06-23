@@ -53,8 +53,8 @@ public class LoginFileter extends UsernamePasswordAuthenticationFilter {
                 String password = map.get(super.getPasswordParameter());
                 String verifycode = map.get(this.getKapchakeyParameter());
 
-                //先判断验证码
-                /*Object sessionCaptcha = request.getSession().getAttribute(ParameterConstant.VERIFY_CODE.value());
+                //先判断验证码(有问题）
+       /*         Object sessionCaptcha = request.getSession().getAttribute(ParameterConstant.VERIFY_CODE.value());
                 if (ObjectUtils.isEmpty(sessionCaptcha)) {
                     throw new AuthenticationServiceException("非法登录");
                 }
