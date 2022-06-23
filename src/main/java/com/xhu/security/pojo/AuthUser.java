@@ -6,9 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Setter
 @Accessors(chain = true)
@@ -24,7 +22,7 @@ public class AuthUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> list = new ArrayList<>();
+        Set<SimpleGrantedAuthority> list = new HashSet<>();
         roles.forEach(role -> {
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.getName());
             list.add(simpleGrantedAuthority);
@@ -60,5 +58,9 @@ public class AuthUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 }

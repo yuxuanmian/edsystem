@@ -1,7 +1,7 @@
 package com.xhu.security;
 
 import com.alibaba.fastjson.JSON;
-import com.xhu.constant.SessionConstant;
+import com.xhu.constant.ParameterConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
@@ -54,7 +54,7 @@ public class LoginFileter extends UsernamePasswordAuthenticationFilter {
                 String verifycode = map.get(this.getKapchakeyParameter());
 
                 //先判断验证码
-                Object sessionCaptcha = request.getSession().getAttribute(SessionConstant.VERIFY_CODE.value());
+                Object sessionCaptcha = request.getSession().getAttribute(ParameterConstant.VERIFY_CODE.value());
                 if (ObjectUtils.isEmpty(sessionCaptcha)) {
                     throw new AuthenticationServiceException("非法登录");
                 }

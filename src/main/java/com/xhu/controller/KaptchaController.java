@@ -1,7 +1,7 @@
 package com.xhu.controller;
 
 import com.google.code.kaptcha.Producer;
-import com.xhu.constant.SessionConstant;
+import com.xhu.constant.ParameterConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ public class KaptchaController extends BaseController {
         String text = UUID.randomUUID().toString().replace("_", "").substring(0, 4);
         log.info(text);
         //将验证码的值存入session
-        session.setAttribute(SessionConstant.VERIFY_CODE.value(), text);
+        session.setAttribute(ParameterConstant.VERIFY_CODE.value(), text);
 
         BufferedImage image = producer.createImage(text);
 

@@ -9,15 +9,19 @@ import com.xhu.mapper.StudentMapper;
 import com.xhu.mapper.TeacherMapper;
 import com.xhu.security.pojo.AuthUser;
 import com.xhu.security.pojo.Role;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
+@Service
 public class MyUserDetailService implements UserDetailsService {
 
     @Autowired
@@ -34,7 +38,7 @@ public class MyUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String prefix = String.valueOf(username.charAt(0));
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role(username, prefix));
+        roles.add(new Role( "ROLE_"+prefix));
 
         AuthUser user = new AuthUser()
                 .setEnabled(true)
@@ -84,6 +88,7 @@ public class MyUserDetailService implements UserDetailsService {
             default:
                 break;
         }
+
         return user;
 
     }

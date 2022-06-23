@@ -10,6 +10,5 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class Role {
-    private String id;
     private String name;
 }

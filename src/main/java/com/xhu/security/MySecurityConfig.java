@@ -5,6 +5,8 @@ import com.xhu.security.handler.LoginAuthenticationFailureHandler;
 import com.xhu.security.handler.LoginAuthenticationSuccessHandler;
 import com.xhu.security.handler.MyPasswordEncoder;
 import com.xhu.utils.ResultVoUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -12,12 +14,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@Slf4j
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    MyUserDetailService myUserDetailService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,7 +38,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 //没有认证被拦截
                 .authenticationEntryPoint((request, response, authException) -> {
-                    String res = ResultVoUtil.returnWithoutAttahment(AuthenticationCode.UNAUTHORIZED.code(), "用户未登录");
+
+                    String res = ResultVoUtil.returnWithoutAttahment(AuthenticationCode.UNAUTHORIZED.code(), authException.getMessage());
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
                     response.setContentType("application/json;charset=utf-8");
                     response.getWriter().println(res);
@@ -55,10 +62,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    public MyUserDetailService userDetailService() {
-        return new MyUserDetailService();
-    }
+
 
     /**
      * 暴露bean
@@ -99,7 +103,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService())
+        auth.userDetailsService(myUserDetailService)
                 .passwordEncoder(new MyPasswordEncoder());
     }
 
