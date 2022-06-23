@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -34,8 +35,9 @@ public class StudentInfoController extends BaseController{
     }
 
     @RequestMapping("/queryMyInfo")
-    public String queryMyInfo(HttpSession session){
-        String studentId = (String) session.getAttribute("studentId");
+    public String queryMyInfo(@RequestBody Map<String,String> map){
+        System.out.println(map.toString());
+        String studentId=map.get("studentId");
         if(StringUtils.isEmpty(studentId)){
             throw new CustomRuntimeException("学号为空，无法查询", ResultConstant.FAILED);
         }
@@ -45,4 +47,6 @@ public class StudentInfoController extends BaseController{
         }
         return this.returnSuccessWithData("查询成功",student);
     }
+
+
 }
