@@ -1,96 +1,72 @@
-//package com.xhu.service.impl;
-//
-//import com.edsystem.mapper.XuejiMapper;
-//import com.edsystem.pojo.Xueji;
-//import com.edsystem.result.JsonResult;
-//import com.edsystem.result.R;
-//import com.edsystem.service.XuejiService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//
-//@Service
-//public class XuejiServiceImpl implements XuejiService {
-//    @Autowired(required = false)
-//    private XuejiMapper xuejiMapper;
-//
-//
-//
-//    public JsonResult findAllList(Integer page, Integer limit) {
-//        JsonResult r=new JsonResult();
-//        try{
-//            Integer param1=(page-1)*limit;
-//            Integer param2=limit;
-//            r.setCode(0);
-//            r.setMsg("查询成功！");
-//            //查询所有的部门信息，塞到data中
-//            List<Xueji> ll=xuejiMapper.findAllList(param1,param2);
-//            r.setData(ll);
-//            Integer TotalSize=xuejiMapper.countXuejiTotalSize();
-//            r.setCount(TotalSize);
-//        }catch(Exception e){
-//            e.printStackTrace();
-//            r.setCode(500);
-//            r.setMsg("查询失败！");
-//        }
-//        return r;
-//    }
-//  @Override
-//    public R addXuejiList(Xueji xueji) {
-//        System.out.println("==service=="+xueji);
-//        R r=new R();
-//        try {
-//            int result=xuejiMapper.addXuejiList(xueji);
-//            if(result>0){
-//                r.setCode(200);
-//                r.setMsg("添加成功！");
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            r.setCode(500);
-//            r.setMsg("添加失败");
-//        }
-//        return r;
-//    }
-//
-//    @Override
-//    public R addXuejijobsign(Integer Id, String jobsign) {
-//        return null;
-//    }
-//
-//
-//    @Override
-//    public R deleteXuejiList(Integer id) {
-//        R r=new R();
-//        try {
-//            System.out.println(id);
-//            int result=xuejiMapper.deleteXuejiList(id);
-//            r.setCode(200);
-//            r.setMsg("删除成功！");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            r.setCode(500);
-//            r.setMsg("删除失败");
-//        }
-//        return r;
-//    }
-//
-//    @Override
-//    public R updateXuejiList(Xueji xueji) {
-//        R r=new R();
-//        try {
-//            System.out.println("==Service=="+xueji);
-//            int result=xuejiMapper.updateXuejiList(xueji);
-//            if(result>0){
-//                r.setCode(200);
-//                r.setMsg("修改成功！");
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            r.setCode(500);
-//            r.setMsg("修改失败");
-//        }
-//        return r;
-//    }
-//}
+package com.xhu.service.impl;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xhu.common.ex.CustomRuntimeException;
+import com.xhu.common.vo.ResultVo;
+import com.xhu.constant.ResultConstant;
+import com.xhu.entity.Xueji;
+import com.xhu.mapper.XuejiMapper;
+import com.xhu.service.XuejiService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+@Service
+public class XuejiServiceImpl implements XuejiService {
+    @Autowired(required = false)
+    private XuejiMapper xuejiMapper;
+
+
+    public IPage<Xueji> findAllList(Map<String,String> map, Integer page, Integer limit) {
+        IPage<Xueji> page1 = new Page<>();
+        page1.setCurrent(page);
+        page1.setSize(limit);
+        return xuejiMapper.findAllList(map,page1);
+    }
+
+    @Override
+    public ResultVo<Xueji> addXuejiList(Xueji xueji) {
+        System.out.println("==service==" + xueji);
+        ResultVo<Xueji> response = new ResultVo<>();
+        if (xuejiMapper.addXuejiList(xueji) > 0) {
+            response.setMessage("添加成功");
+            response.setCode(ResultConstant.SUCCESS);
+        } else {
+            throw new CustomRuntimeException("添加失败", ResultConstant.FAILED);
+        }
+        return response;
+    }
+
+    @Override
+    public ResultVo<Xueji> addXuejijobsign(Integer Id, String jobsign) {
+        return null;
+    }
+
+
+    @Override
+    public ResultVo<Xueji> deleteXuejiList(Integer id) {
+        ResultVo<Xueji> r = new ResultVo<Xueji>();
+        if (xuejiMapper.deleteXuejiList(id) > 0) {
+            r.setCode(ResultConstant.SUCCESS);
+            r.setMessage("删除成功！");
+        } else {
+            throw new CustomRuntimeException("系统繁忙", ResultConstant.FAILED);
+        }
+        return r;
+    }
+
+    @Override
+    public ResultVo<Xueji> updateXuejiList(Xueji xueji) {
+        ResultVo<Xueji> r = new ResultVo<Xueji>();
+        int result = xuejiMapper.updateXuejiList(xueji);
+        if (result > 0) {
+            r.setCode(200);
+            r.setMessage("修改成功！");
+        }else {
+            throw new CustomRuntimeException("系统繁忙",ResultConstant.FAILED);
+        }
+        return r;
+    }
+}

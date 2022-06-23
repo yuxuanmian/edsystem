@@ -14,22 +14,22 @@
         join teacher t on sc.teacherId=t.teacherId join teacher_course tc
         on tc.teacherId=sc.teacherId and tc.courseId=sc.courseId
         <where>
-            <if test="map.studentId != null">
+            <if test="map.studentId != null and map.studentId!=''">
                 s.studentId like concat("%",#{map.studentId},"%")
             </if>
-            <if test="map.studentName != null">
+            <if test="map.studentName != null and map.studentName!=''">
                 s.studentName like concat("%",#{map.studentName},"%")
             </if>
-            <if test="map.teacherId != null">
+            <if test="map.teacherId != null and map.teacherId!=''">
                 t.teacherId like concat("%",#{map.teacherId},"%")
             </if>
-            <if test="map.teacherName != null">
+            <if test="map.teacherName != null and map.teacherName!=''">
                 t.teacherName like concat("%",#{map.teacherName},"%")
             </if>
-            <if test="map.courseId != null">
+            <if test="map.courseId != null and map.courseId!=''">
                 c.courseId like concat("%",#{map.courseId},"%")
             </if>
-            <if test="map.courseName != null">
+            <if test="map.courseName != null and map.courseName!=''">
                 c.courseName like concat("%",#{map.courseName},"%")
             </if>
         </where>
@@ -62,14 +62,14 @@
         <where>
             t.teacherId =#{map.teacherId}
 
-            <if test="map.studentId != null">
-                s.studentId like concat("%",#{map.studentId},"%")
+            <if test="map.studentId != null and map.studentId != ''" >
+                and s.studentId like concat("%",#{map.studentId},"%")
             </if>
-            <if test="map.studentName != null">
-                s.studentName like concat("%",#{map.studentName},"%")
+            <if test="map.studentName != null and map.studentName != ''">
+                and s.studentName like concat("%",#{map.studentName},"%")
             </if>
-            <if test="map.courseId != null">
-                c.courseId like concat("%",#{map.courseId},"%")
+            <if test="map.courseName != null and map.courseName != ''">
+                and c.courseName like concat("%",#{map.courseName},"%")
             </if>
         </where>
         order by c.courseId

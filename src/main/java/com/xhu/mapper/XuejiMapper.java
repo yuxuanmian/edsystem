@@ -7,10 +7,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface XuejiMapper {
-    IPage<Xueji> findAllList(IPage<Xueji> iPage);
+    IPage<Xueji> findAllList(@Param("map") Map<String,String> map,IPage<Xueji> iPage);
 
     int addXuejiList(Xueji xueji);
 

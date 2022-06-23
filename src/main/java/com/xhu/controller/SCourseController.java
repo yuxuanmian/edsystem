@@ -53,6 +53,7 @@ public class SCourseController extends BaseController {
 
     @RequestMapping("teacherCherckAllStudetScore")
     public String teacherCherckAllStudetScore(@RequestBody Map<String, String> map) {
+        System.out.println(map);
         IPage<SCourse> studentCourseList = sCourseService.teacherCherckAllStudetScore(map);
         return this.returnPages(studentCourseList);
     }
