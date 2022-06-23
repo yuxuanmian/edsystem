@@ -5,10 +5,11 @@ import com.xhu.entity.StudentCourse;
 import com.xhu.entity.Teacher;
 import com.xhu.entity.vo.TCourse;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public interface StudentCourseMapper {
     //查询全校课表
     IPage<TCourse> query(Map<String, ?> map, IPage<?> page);

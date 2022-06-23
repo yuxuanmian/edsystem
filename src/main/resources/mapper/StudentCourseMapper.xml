@@ -11,33 +11,17 @@
         <where>
             tc.isOpen=1
 
-            <if test="map.courseId != null">
+            <if test="map.courseId != null || map.courseId=''">
                and c.courseId like concat('%',#{map.courseId},'%')
             </if>
-            <if test="map.courseName != null">
-               and c.courseName like concat('%',#{map.courseId},'%')
+            <if test="map.courseName != null || map.courseName=''">
+               and c.courseName like concat('%',#{map.courseName},'%')
             </if>
-            <if test="map.teacherName != null">
-               and t.teacherName like concat('%',#{map.courseId},'%')
-            </if>
-        </where>
-        order by c.courseId <!--limit #{page},#{size}-->
-    </select>
-    <select id="queryConunt" parameterType="map" resultType="int">
-        select count(*) from teacher t join teacher_course tc
-        on t.teacherId=tc.teacherId JOIN course c on c.courseId=tc.courseId
-        <where>
-            isOpen=1
-            <if test="map.courseId != null">
-                and c.courseId like concat('%',#{map.courseId},'%')
-            </if>
-            <if test="map.courseName != null">
-               and c.courseName like concat('%',#{map.courseId},'%')
-            </if>
-            <if test="map.teacherName != null">
-               and t.teacherName like concat('%',#{map.courseId},'%')
+            <if test="map.teacherName != null || map.teacherName=''">
+               and t.teacherName like concat('%',#{map.teacherName},'%')
             </if>
         </where>
+        order by c.courseId
     </select>
 
     <!--通过studentid和courseId查询记录-->

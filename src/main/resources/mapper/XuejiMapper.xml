@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhu.mapper.XuejiMapper">
+    <select id="findAllList" resultType="xueji">
+        select * from xueji
+    </select>
+
+    <insert id="addXuejiList" parameterType="xueji">
+         insert into xueji(id,username,sex,phone,email,address,xuejixinxi)
+         values(#{id},#{username},#{sex},#{phone},#{email},#{address},#{xuejixinxi})
+     </insert>
+
+    <delete id="deleteXuejiList" parameterType="xueji">
+        delete from xueji where id=#{id}
+    </delete>
+    <update id="updateXuejiList" parameterType="xueji">
+         update xueji set username=#{username}, sex=#{sex}, phone=#{phone} , email=#{email}, `address`=#{address}, xuejixinxi=#{xuejixinxi}where id=#{id}
+     </update>
+
+    <update id="addXuejijobsign" parameterType="xueji">
+         update teacher set jobsign=#{jobsign},`status`=2 where Id=#{Id}
+     </update>
+</mapper>

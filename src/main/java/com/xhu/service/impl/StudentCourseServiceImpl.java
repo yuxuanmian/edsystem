@@ -28,23 +28,16 @@ public class StudentCourseServiceImpl implements StudentCourseService {
         IPage<TCourse> iPage = studentCourseMapper.query(map, new Page<>(page.getPage(), page.getLimit()));
         List<TCourse> tCourseList = iPage.getRecords();
 
-
         //判断课程是否已选
         String studentId = (String) map.get("studentId");
-        /*for (TCourse tCourse : tCourseList) {
+        for (TCourse tCourse : tCourseList) {
             String courseId = tCourse.getCourseId();
             String teacherId = tCourse.getTeacherId();
             StudentCourse studentCourse = studentCourseMapper.queryBySidAndCid(studentId, courseId, teacherId);
             if (studentCourse != null) {
                 tCourse.setCheck(true);
             }
-        }*/
-        tCourseList=tCourseList.stream().filter(tCourse -> {
-            String courseId=tCourse.getCourseId();
-            String teacherId = tCourse.getTeacherId();
-            StudentCourse studentCourse = studentCourseMapper.queryBySidAndCid(studentId, courseId, teacherId);
-            return studentCourse != null;
-        }).collect(Collectors.toList());
+        }
 
         iPage.setRecords(tCourseList);
         return iPage;
@@ -65,7 +58,7 @@ public class StudentCourseServiceImpl implements StudentCourseService {
         List<TCourse> tCourseList = iPage.getRecords();
         //判断课程是否已选
         String studentId = (String) map.get("studentId");
-      /*  for (int i = 0; i < tCourseList.size(); i++) {
+       for (int i = 0; i < tCourseList.size(); i++) {
             String courseId = tCourseList.get(i).getCourseId();
             String teacherId = tCourseList.get(i).getTeacherId();
             StudentCourse studentCourse = studentCourseMapper.queryBySidAndCid(studentId, courseId, teacherId);
@@ -73,14 +66,7 @@ public class StudentCourseServiceImpl implements StudentCourseService {
                 tCourseList.remove(i);
                 i--;
             }
-        }*/
-
-        tCourseList=tCourseList.stream().filter(tCourse -> {
-            String courseId=tCourse.getCourseId();
-            String teacherId = tCourse.getTeacherId();
-            StudentCourse studentCourse = studentCourseMapper.queryBySidAndCid(studentId, courseId, teacherId);
-            return studentCourse == null;
-        }).collect(Collectors.toList());
+        }
 
         iPage.setRecords(tCourseList);
         return iPage;

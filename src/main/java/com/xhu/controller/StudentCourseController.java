@@ -23,7 +23,7 @@ public class StudentCourseController extends BaseController {
     //studentId,courseId,courseName,teacherName,page,limit
     @RequestMapping("/queryAll")
     public String query(@RequestBody Map<String, Object> map) {
-
+        System.out.println(map.toString());
         SimplePage page = MapToPojoUtil.convert(SimplePage.class, map);
         return this.returnPages(studentCourseService.query(map, page));
 
