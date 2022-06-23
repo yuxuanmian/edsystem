@@ -35,4 +35,4 @@ mybatis-plus:
   type-aliases-package: com.xhu.entity
 
 server:
-  port: 8080
+  port: 8088

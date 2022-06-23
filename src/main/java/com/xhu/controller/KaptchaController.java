@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -23,11 +24,11 @@ public class KaptchaController extends BaseController {
     Producer producer;
 
     @RequestMapping("/vc.jpg")
-    public String kaptcha(HttpSession session) throws IOException {
+    public String kaptcha(HttpServletRequest request) throws IOException {
         String text = UUID.randomUUID().toString().replace("_", "").substring(0, 4);
         log.info(text);
         //将验证码的值存入session
-        session.setAttribute(ParameterConstant.VERIFY_CODE.value(), text);
+        request.getSession().setAttribute(ParameterConstant.VERIFY_CODE.value(), text);
 
         BufferedImage image = producer.createImage(text);
 

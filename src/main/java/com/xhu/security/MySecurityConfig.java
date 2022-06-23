@@ -7,16 +7,24 @@ import com.xhu.security.handler.MyPasswordEncoder;
 import com.xhu.utils.ResultVoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 @Configuration
 @Slf4j
@@ -25,6 +33,24 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MyUserDetailService myUserDetailService;
 
+    @Bean
+    FilterRegistrationBean<CorsFilter> corsFilterFilterRegistrationBean() {
+        FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        //允许哪些请求跨域
+        corsConfiguration.addAllowedOriginPattern("*");
+        //允许哪些头信息跨域
+        corsConfiguration.addAllowedHeader("*");
+        //允许哪些方法跨域
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        registrationBean.setFilter(new CorsFilter(source));
+        registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return registrationBean;
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //放行验证码接口
@@ -60,6 +86,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         //重写过滤器，并将原生PasswordAuthenticationFilter进行替换
         http.addFilterAt(loginFileter(), UsernamePasswordAuthenticationFilter.class);
 
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
     }
 
 
