@@ -24,7 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//TODO:
+/**
+ * 管理员课表管理+开课管理+教师管理
+ */
 @RestController
 @RequestMapping("/managers")
 public class ManagerCourseController extends BaseController {

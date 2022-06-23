@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-//TODO:
+/**
+ * 公告管理
+ */
 @RestController
 @RequestMapping("/notice")
 public class NoticeController extends BaseController{

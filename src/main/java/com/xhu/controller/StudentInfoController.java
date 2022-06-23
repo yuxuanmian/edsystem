@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
-//TODO:
+/**
+ * 信息管理模块
+ */
+
 @RestController
 @RequestMapping("/studentInfo")
 public class StudentInfoController extends BaseController{

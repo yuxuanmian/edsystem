@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+/**
+ * 学生课表管理
+ */
 @RestController
 @RequestMapping("/student")
 public class StudentCourseController extends BaseController {

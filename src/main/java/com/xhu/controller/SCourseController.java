@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-//TODO:
+/**
+ * 成绩管理
+ */
 @RestController
 @RequestMapping("/score")
 public class SCourseController extends BaseController {

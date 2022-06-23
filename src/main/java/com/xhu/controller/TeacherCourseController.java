@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 老师课程管理
+ */
 @RestController
 @RequestMapping("/teacher")
 public class TeacherCourseController extends BaseController {
