@@ -31,6 +31,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().mvcMatchers("/vc.jpg").permitAll()
                 //其余的url进行认证
                 .anyRequest().authenticated()
+                .and().cors()
                 //表单登录（已重写）
                 .and().formLogin()
                 .and()
