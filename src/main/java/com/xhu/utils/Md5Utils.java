@@ -3,7 +3,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Md5Utils {
+public abstract class Md5Utils {
 
     private Md5Utils(){}
 

@@ -13,7 +13,7 @@ import java.io.IOException;
 public class LoginAuthenticationFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        String json = ResultVoUtil.returnWithoutAttahment(AuthenticationCode.LOGIN_FAIL.code(), "登录失败");
+        String json = ResultVoUtil.returnWithoutAttahment(AuthenticationCode.LOGIN_FAIL.code(), exception.getMessage());
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(HttpStatus.OK.value());
         response.getWriter().println(json);

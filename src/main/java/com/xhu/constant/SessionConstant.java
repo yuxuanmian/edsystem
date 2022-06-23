@@ -4,10 +4,20 @@ package com.xhu.constant;
  * session常量类
  * @author yxm
  */
-public final class SessionConstant {
-    public static final String TOKEN = "token";
+public enum  SessionConstant {
+    TOKEN("token"),
 
-    private SessionConstant() {
+    VERIFY_CODE("verify_code");
+
+    private String value;
+
+    SessionConstant(String value) {
+        this.value=value;
     }
+
+    public String value(){
+        return this.value;
+    }
+
 }
 

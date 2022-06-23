@@ -2,15 +2,17 @@ package com.xhu.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 从封装了json的map中得到pojo类
  */
-public class MapToPojoUtil {
+public abstract class MapToPojoUtil {
 
-    private MapToPojoUtil(){
+    private MapToPojoUtil() {
         //不允许直接实例化
     }
 
@@ -24,9 +26,9 @@ public class MapToPojoUtil {
      */
     public static <T> T convert(Class<T> aClass, Map<String, ?> jsonStrMap) {
         //将所有的key转换为小写并去除所有的"_"
-        Map<String,Object> newMap=new HashMap<>();
-        jsonStrMap.forEach((k,v)-> newMap.put(k.toLowerCase(), v));
-        jsonStrMap=newMap;
+        Map<String, Object> newMap = new HashMap<>();
+        jsonStrMap.forEach((k, v) -> newMap.put(k.toLowerCase(), v));
+        jsonStrMap = newMap;
         //用户返回
         T t = null;
         try {
