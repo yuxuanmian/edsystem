@@ -54,9 +54,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //放行验证码接口
-        http.authorizeRequests().mvcMatchers("/vc.jpg").permitAll()
+        http.authorizeRequests().anyRequest().permitAll()
                 //其余的url进行认证
-                .anyRequest().authenticated()
                 .and().cors()
                 //表单登录（已重写）
                 .and().formLogin()

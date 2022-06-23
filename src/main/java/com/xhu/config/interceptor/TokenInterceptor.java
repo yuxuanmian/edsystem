@@ -21,7 +21,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         String header = request.getHeader(ParameterConstant.TOKEN.value());
-        if (ObjectUtils.isEmpty(handler)) {
+        /*if (ObjectUtils.isEmpty(handler)) {
             throw new CustomRuntimeException("token验证失败", ResultConstant.FAILED);
         }
         try {
@@ -29,7 +29,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         }catch (RuntimeException e){
             log.error(e.getMessage());
             throw new CustomRuntimeException("token验证失败", ResultConstant.FAILED);
-        }
+        }*/
         return true;
     }
 }
