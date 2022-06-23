@@ -21,62 +21,12 @@ public class SCourseServiceImpl implements SCourseService {
     private SCourseMapper sCourseMapper;
 
     @Override
-    public IPage<SCourse> findStudentCourseList(Map<String,String> map) {
+    public IPage<SCourse> managerCherckAllStudetScore(Map<String,String> map) {
         IPage<SCourse> iPage = new Page<>();
         iPage.setCurrent(Long.parseLong(map.get("page")));
         iPage.setSize(Long.parseLong(map.get("limit")));
-        IPage<SCourse> resultPage = sCourseMapper.findStudentCourseList(map, iPage);
+        IPage<SCourse> resultPage = sCourseMapper.managerCherckAllStudetScore(map, iPage);
         return resultPage;
-    }
-
-    @Override
-    public ResultVo<?> addStudentCourse(StudentCourse studentCourse) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> selectBycouseID(String courseId) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> selectByID(Integer Id) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> updateByID(StudentCourse studentCourse) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> deleteByID(Integer Id) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> findStudentCourseByStudentList(String studentId, Integer page, Integer limit) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> findStudentCourseByTeacherList(String teacherId, Integer page, Integer limit) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> glyselect(String studentId, String teacherId, String courseId, Integer page, Integer limit) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> lsselect(String studentId, String courseId, Integer page, Integer limit) {
-        return null;
-    }
-
-    @Override
-    public ResultVo<?> xsselect(String courseId, Integer page, Integer limit) {
-        return null;
     }
 
 
