@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StudentCourse {
 
-  private int id;
+  private Integer id;
   private String studentId;
   private String courseId;
   private String teacherId;
-  private int score;
+  private Integer score;
 }

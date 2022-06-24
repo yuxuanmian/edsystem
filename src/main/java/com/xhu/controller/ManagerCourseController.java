@@ -102,6 +102,11 @@ public class ManagerCourseController extends BaseController {
         }
     }
 
+
+
+
+
+
     //添加课程
     @RequestMapping("/addCourse")
     public String addCourse(@RequestBody Course course) {
