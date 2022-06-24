@@ -4,3 +4,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: false
   type-aliases-package: com.xhu.entity
+spring:
+  profiles:
+    active: pcj
+   ssss
