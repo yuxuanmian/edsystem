@@ -1,6 +1,7 @@
 package com.xhu.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xhu.common.ex.CustomRuntimeException;
 import com.xhu.entity.vo.TCourse;
 import com.xhu.entity.*;
 import com.xhu.mapper.ManagerCourseMapper;
@@ -43,7 +44,7 @@ public class ManagerCourseServiceImpl implements ManagerCourseService {
     public int selectStudentCourse(String lessonTime, StudentCourse studentCourse) {
         List<String> lessonTimeList = managerCourseMapper.queryLessonTime(studentCourse);
         if(lessonTimeList.contains(lessonTime)){
-            return 0;
+            throw new CustomRuntimeException("课程冲突", 3000);
         }else {
             return managerCourseMapper.addStudentCourse(studentCourse);
         }

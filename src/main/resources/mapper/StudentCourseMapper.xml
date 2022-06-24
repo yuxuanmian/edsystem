@@ -72,7 +72,7 @@
         select lessonTime from teacher_course tc join teacher t on t.teacherId=tc.teacherId
  join course c on c.courseId=tc.courseId join student_course sc on sc.courseId=c.courseId
   JOIN student  s on s.studentId=sc.studentId and sc.teacherId=t.teacherId where
-  sc.studentId=#{studentCourse.courseId}
+  sc.studentId=#{studentCourse.studentId}
     </select>
     <insert id="addStudentCourse" parameterType="studentCourse">
         insert into student_course (studentId,courseId,teacherId) values(#{studentId},#{courseId},#{teacherId})
